@@ -14,7 +14,7 @@
 | height           | Height of the door                                 | 2             |
 | depth            | Depth of the door                                  | 0.25          |
 | color            | Color of the door                                  | #AAA          |
-| texture          | Texture of the door                                | 2             |
+| texture          | Texture of the door                                | ''             |
 | type             | Door type ('simple' or 'double')                   | simple        |
 | open_direction   | The open direction ('right', 'left', 'up', 'down') | right         |
 | open_duration    | The duration of the opening animation in ms        | 3000          |
@@ -32,13 +32,7 @@ Just declare the entity in the HTML with the properties you want.
 
 ### Notes
 
-To avoid intersecting with the laser, the raycaster's `near` property is set to
-0.03. Thus, you may see odd results when the top of the controller is held
-extremely close to the entity you wish to intersect.
-
-This component was built for the Vive controller model. If you are using a
-different model, you may need to modify the raycaster and position of the
-laser. In the future, this should be made more easily configurable.
+The component is pretty simple and create only sliding rectangular doors. It also doesn't support 3D models. If you have any idea to improve the component, do a pull request ;)
 
 #### Browser
 
@@ -48,7 +42,7 @@ Install and use by directly including the [browser files](dist):
 <head>
   <title>My A-Frame Scene</title>
   <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-  <script src=""></script>
+  <script src="https://raw.githubusercontent.com/pjoulot/a-door/master/dist/door.min.js"></script>
 </head>
 
 <body>
