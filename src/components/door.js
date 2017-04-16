@@ -5,7 +5,7 @@ AFRAME.registerComponent('door', {
     depth: {type: 'number', default: 0.25},
     color: {type: 'color', default: '#AAA'},
 	texture: {type: 'string', default: ''},
-	type: {type: 'string', default: 'double'},
+	type: {type: 'string', default: 'simple'},
 	open_direction: {type: 'string', default: 'right'},
 	open_duration: {type: 'number', default: 3000},
 	close_duration: {type: 'number', default: 3000},
