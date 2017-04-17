@@ -27,7 +27,13 @@
 Just declare the entity in the HTML with the properties you want.
 
 ```html
-<a-entity door="width: 10; height: 5; color: #4D4437; depth: 0.25; type: double; open_direction: left;" position="0 2.5 -5"></a-entity>
+<a-entity id="door" door="width: 10; height: 5; color: #4D4437; depth: 0.25; type: double; open_direction: left;" position="0 2.5 -5"></a-entity>
+```
+
+And interact with it by emitting the 'open' or 'close' event.
+
+```js
+document.querySelectorAll('#door').forEach(function(door) {door.emit('open');});
 ```
 
 ### Notes
