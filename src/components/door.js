@@ -11,6 +11,8 @@ AFRAME.registerComponent('door', {
 	close_duration: {type: 'number', default: 3000},
 	open_event: {type: 'string', default: 'open'},
 	close_event: {type: 'string', default: 'close'},
+	open_sound: {type: 'string', default: ''},
+	close_sound: {type: 'string', default: ''},
   },
   /**
    * Initial creation and setting of the mesh.
@@ -22,6 +24,9 @@ AFRAME.registerComponent('door', {
 	// Store the reference to the event functions.
 	this.eventOpenCloseHandler = function (event) {
       let eventName = event.type;
+	  el.querySelectorAll('a-sound').forEach(function(sound) {
+		sound.emit(eventName, null, false);
+	  });
 	  el.querySelectorAll('a-box').forEach(function(door) {
 		door.emit(eventName, null, false);
 	  });
@@ -76,6 +81,21 @@ AFRAME.registerComponent('door', {
   
   createDoor: function(data, el) {
 	  
+	// Set the sounds.
+	if (data.open_sound !== '') {
+		var doorSoundOpen = document.createElement('a-sound');
+		doorSoundOpen.setAttribute('src', 'src: ' + data.open_sound);
+		doorSoundOpen.setAttribute('on', data.open_event);
+		el.appendChild(doorSoundOpen);
+	}
+	if (data.close_sound !== '') {
+		var doorSoundClose = document.createElement('a-sound');
+		doorSoundClose.setAttribute('src', 'src: ' + data.close_sound);
+		doorSoundClose.setAttribute('on', data.close_event);
+		el.appendChild(doorSoundClose);
+	}
+	
+	// Create the doors.
 	var doorLoop = data.type === "double" ? 2 : 1;
 
     for(var i=0; i < doorLoop; i++) {
