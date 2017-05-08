@@ -6,7 +6,8 @@
   "scripts": {
     "all": "npm run build && npm run build-uglify",
     "build": "webpack index.js build/aframe-door.js",
-    "build-uglify": "webpack -p index.js build/aframe-door.min.js"
+    "build-uglify": "webpack -p index.js build/aframe-door.min.js",
+    "start": "budo --live --verbose --port 3000 --open"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "aframe": "^0.4.0",
     "three": "^0.83.0",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "budo": "^7.0.0"
   }
 }
