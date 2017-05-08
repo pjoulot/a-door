@@ -1,0 +1,34 @@
+{
+  "name": "aframe-door",
+  "version": "0.2.0",
+  "description": "A-Frame door component",
+  "main": "index.js",
+  "scripts": {
+    "all": "npm run build && npm run build-uglify",
+    "build": "webpack index.js build/aframe-door.js",
+    "build-uglify": "webpack -p index.js build/aframe-door.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pjoulot/a-door.git"
+  },
+  "keywords": [
+    "aframe",
+    "aframe-vr",
+    "vr",
+    "mozvr",
+    "webvr",
+	"door"
+  ],
+  "author": "Joulot Philippe (https://github.com/pjoulot)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pjoulot/a-door/issues"
+  },
+  "homepage": "https://github.com/pjoulot/a-door#readme",
+  "devDependencies": {
+    "aframe": "^0.4.0",
+    "three": "^0.83.0",
+    "webpack": "^1.13.3"
+  }
+}

@@ -23,7 +23,7 @@ AFRAME.registerComponent('door', {
     this.createDoor(data, el);
 	// Store the reference to the event functions.
 	this.eventOpenCloseHandler = function (event) {
-      let eventName = event.type;
+      var eventName = event.type;
 	  el.querySelectorAll('a-sound').forEach(function(sound) {
 		sound.emit(eventName, null, false);
 	  });
@@ -109,31 +109,31 @@ AFRAME.registerComponent('door', {
 	  var doorAnimationClose = document.createElement('a-animation');
 	  doorAnimationClose.setAttribute('attribute', 'position');
 	 
-	  let direction = i === 0 ? -1 : 1;
+	  var direction = i === 0 ? -1 : 1;
 	  
 	  if (data.open_direction === "right" || data.open_direction === "left") {
-	    let widthDoor = data.width / doorLoop;
+	    var widthDoor = data.width / doorLoop;
 		door.setAttribute('height', data.height);
 	    door.setAttribute('width', widthDoor);
 		
-		let deltaPosition = 0;
+		var deltaPosition = 0;
 		if (doorLoop === 2) {
 			deltaPosition = (widthDoor / 2) * direction;
 		}
-		let doorCoordinates = deltaPosition + ' 0 0';
+		var doorCoordinates = deltaPosition + ' 0 0';
 		door.setAttribute('position', doorCoordinates);
 		doorAnimationOpen.setAttribute('from', doorCoordinates);
 		doorAnimationOpen.setAttribute('dur', data.open_duration);
 		doorAnimationOpen.setAttribute('begin', data.open_event);
 		
-		let doorXDestination = deltaPosition;
+		var doorXDestination = deltaPosition;
 		if ((data.open_direction === "right" && doorLoop === 1) || (i === 1 && doorLoop === 2)) {
 			doorXDestination = deltaPosition + widthDoor;
 		}
 		else if((data.open_direction === "left" && doorLoop === 1) || (i === 0 && doorLoop === 2)) {
 			doorXDestination = deltaPosition - widthDoor;
 		}
-		let doorCoordinatesDestination = doorXDestination + ' 0 0';
+		var doorCoordinatesDestination = doorXDestination + ' 0 0';
 		doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
 		door.appendChild(doorAnimationOpen);
 		
@@ -144,28 +144,28 @@ AFRAME.registerComponent('door', {
 		door.appendChild(doorAnimationClose);
       }
 	  else if(data.open_direction === "up" || data.open_direction === "down") {
-		let heightDoor = data.height / doorLoop;
+		var heightDoor = data.height / doorLoop;
 		door.setAttribute('height', heightDoor);
 	    door.setAttribute('width', data.width);
 		
-		let deltaPosition = 0;
+		var deltaPosition = 0;
 		if (doorLoop === 2) {
 			deltaPosition = (heightDoor / 2) * direction;
 		}
-		let doorCoordinates = '0 ' + deltaPosition + ' 0';
+		var doorCoordinates = '0 ' + deltaPosition + ' 0';
 		door.setAttribute('position', doorCoordinates);
 		doorAnimationOpen.setAttribute('from', doorCoordinates);
 		doorAnimationOpen.setAttribute('dur', data.open_duration);
 		doorAnimationOpen.setAttribute('begin', data.open_event);
 		
-		let doorYDestination = deltaPosition;
+		var doorYDestination = deltaPosition;
 		if ((data.open_direction === "up" && doorLoop === 1) || (i === 1 && doorLoop === 2)) {
 			doorYDestination = deltaPosition + heightDoor;
 		}
 		else if((data.open_direction === "down" && doorLoop === 1) || (i === 0 && doorLoop === 2)) {
 			doorYDestination = deltaPosition - heightDoor;
 		}
-		let doorCoordinatesDestination = '0 ' + doorYDestination + ' 0';
+		var doorCoordinatesDestination = '0 ' + doorYDestination + ' 0';
 		doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
 		door.appendChild(doorAnimationOpen);
 		
