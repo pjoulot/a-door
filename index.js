@@ -4,15 +4,17 @@ AFRAME.registerComponent('door', {
     height: {type: 'number', default: 2},
     depth: {type: 'number', default: 0.25},
     color: {type: 'color', default: '#AAA'},
-	texture: {type: 'string', default: ''},
-	type: {type: 'string', default: 'simple'},
-	open_direction: {type: 'string', default: 'right'},
-	open_duration: {type: 'number', default: 3000},
-	close_duration: {type: 'number', default: 3000},
-	open_event: {type: 'string', default: 'open'},
-	close_event: {type: 'string', default: 'close'},
-	open_sound: {type: 'string', default: ''},
-	close_sound: {type: 'string', default: ''},
+      texture: {type: 'string', default: ''},
+      type: {type: 'string', default: 'simple'},
+      open_direction: {type: 'string', default: 'right'},
+      open_duration: {type: 'number', default: 3000},
+      close_duration: {type: 'number', default: 3000},
+      open_event: {type: 'string', default: 'open'},
+      close_event: {type: 'string', default: 'close'},
+      open_sound: {type: 'string', default: ''},
+      close_sound: {type: 'string', default: ''},
+      open_command: {type: 'string', default: ''},
+      close_command: {type: 'string', default: ''},
   },
   /**
    * Initial creation and setting of the mesh.
@@ -23,7 +25,7 @@ AFRAME.registerComponent('door', {
     this.createDoor(data, el);
 	// Store the reference to the event functions.
 	this.eventOpenCloseHandler = function (event) {
-      var eventName = event.type;
+          var eventName = event.type;
 	  el.querySelectorAll('a-sound').forEach(function(sound) {
 		sound.emit(eventName, null, false);
 	  });
@@ -58,25 +60,33 @@ AFRAME.registerComponent('door', {
       el.getObject3D('mesh').material.color = data.color;
     }
 	
-	// Listen for the events.
-	// Open event.
-	if (oldData.open_event && data.open_event !== oldData.open_event) {
+    // Listen for the events.
+    // Open event.
+    if (oldData.open_event && data.open_event !== oldData.open_event) {
       el.removeEventListener(oldData.open_event, this.eventOpenCloseHandler);
     }
-	if (data.open_event) {
+    if (data.open_event) {
       el.addEventListener(data.open_event, this.eventOpenCloseHandler);
     }
-	// Close event.
-	if (oldData.close_event && data.close_event !== oldData.close_event) {
+    // Close event.
+    if (oldData.close_event && data.close_event !== oldData.close_event) {
       el.removeEventListener(oldData.close_event, this.eventOpenCloseHandler);
     }
-	if (data.close_event) {
+    if (data.close_event) {
       el.addEventListener(data.close_event, this.eventOpenCloseHandler);
     }
   },
 
   remove: function () {
     this.el.removeObject3D('mesh');
+  },
+
+  open: function () {
+    this.el.emit('open');
+  },
+
+  close: function () {
+    this.el.emit('close');
   },
   
   createDoor: function(data, el) {
@@ -94,6 +104,15 @@ AFRAME.registerComponent('door', {
 		doorSoundClose.setAttribute('on', data.close_event);
 		el.appendChild(doorSoundClose);
 	}
+        // Set the command attributes.
+        if (data.open_command !== '') {
+          var openCommand = 'command: ' + data.open_command + '; type: function; targetComponent: door; function: open;';
+          el.setAttribute('speech-command__open', openCommand);
+        }
+        if (data.close_command !== '') {
+          var closeCommand = 'command: ' + data.close_command + '; type: function; targetComponent: door; function: close;';
+          el.setAttribute('speech-command__open', closeCommand);
+        }
 	
 	// Create the doors.
 	var doorLoop = data.type === "double" ? 2 : 1;

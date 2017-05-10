@@ -1,23 +1,29 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="https://rawgit.com/aframevr/aframe/14c9b5b/dist/aframe-master.min.js"></script>
-	<script src="index.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
+    <script src="https://rawgit.com/aframevr/aframe/e21a8a3/dist/aframe-master.min.js"></script>
+    <script src="https://rawgit.com/lmalave/aframe-speech-command-component/master/dist/aframe-speech-command-component.min.js"></script>
+    <script src="index.js"></script>
     <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+    <script>
+      var open = function() {
+      };
+    </script>
   </head>
   <body>
     <a-scene>
-	    <a-assets>
-		<img id="boxTexture" src="resources/image/texture.jpg"/>
-		<img id="firefox" src="resources/image/firefox.jpg"/>
-		<audio id="open_sound" src="resources/sound/atlantis_door_open.mp3" preload="auto"></audio>
-	    <audio id="close_sound" src="resources/sound/atlantis_door_close.mp3" preload="auto"></audio>
-	  </a-assets>
+      <a-assets>
+        <img id="boxTexture" src="resources/image/texture.jpg"/>
+        <img id="firefox" src="resources/image/firefox.jpg"/>
+        <audio id="open_sound" src="resources/sound/atlantis_door_open.mp3" preload="auto"></audio>
+        <audio id="close_sound" src="resources/sound/atlantis_door_close.mp3" preload="auto"></audio>
+      </a-assets>
 
       <a-sky src="#FFF"></a-sky>
+          <a-entity id="annyang" annyang-speech-recognition></a-entity>
 	  <!-- ground -->
-	  <a-sound src="src: url(atlantis_door_open.mp3)" autoplay="true" position="0 0 0" volume="1"></a-sound>
-	  <a-plane color="#393027" height="10" width="10" position="0 0 0" rotation="-90 0 0" repeat="100 100"></a-plane>
+	  <a-plane speech-command__show="command: cat; type: attribute; attribute: color; value: #FFF;" color="#393027" height="10" width="10" position="0 0 0" rotation="-90 0 0" repeat="100 100"></a-plane>
 	  <!-- walls -->
 	  <a-plane src="#firefox" height="5" width="10" position="0 2.5 -5" rotation="0 0 0"></a-plane>
 	  <a-plane src="#boxTexture" side="back" height="5" width="10" position="0 2.5 5" rotation="0 0 0"></a-plane>
@@ -25,7 +31,7 @@
 	  <a-plane src="#boxTexture" height="5" width="10" position="5 2.5 0" rotation="0 -90 0"></a-plane>
 	  <!-- roof -->
 	  <a-plane color="#393027" height="10" width="10" position="0 5 0" rotation="90 0 0"></a-plane>
-	  <a-entity id="door" door="width: 10; height: 5; color: #4D4437; depth: 0.25; type: double; open_direction: left; open_sound: #open_sound; close_sound: #close_sound;" position="0 2.5 -5"></a-entity>
+	  <a-entity speech-command__open="command: open; type: function; targetComponent: door; function: open;" speech-command__close="command: close; type: function; targetComponent: door; function: close;" id="door" door="width: 10; height: 5; color: #4D4437; depth: 0.25; type: double; open_direction: left; open_sound: #open_sound; close_sound: #close_sound;" position="0 2.5 -5"></a-entity>
 	  <!-- document.querySelectorAll('#door').forEach(function(door) {door.emit('open');}); -->
 	  <!-- document.querySelectorAll('a-box[color="orange"]').forEach(function(door) {door.emit('open');}); -->
 	  <a-light type="ambient" color="#FFF"></a-light>
