@@ -140,15 +140,7 @@ AFRAME.registerComponent('door', {
 		var doorCoordinates = deltaPosition + ' 0 0';
 		door.setAttribute('position', doorCoordinates);
 		doorAnimationOpen.setAttribute('from', doorCoordinates);
-		var duration = document.querySelector(data.open_sound).duration;
-		// If a sound has been set, use the sound duration.
-		if (typeof(duration) !== 'undefined') {
-		  duration = Math.trunc(duration * 1000);
-		  doorAnimationOpen.setAttribute('dur', duration);
-		}
-		else {
-		  doorAnimationOpen.setAttribute('dur', data.open_duration);
-		}
+		this.setAnimationDuration(doorAnimationOpen, data.open_sound);
 		doorAnimationOpen.setAttribute('begin', data.open_event);
 		
 		var doorXDestination = deltaPosition;
@@ -162,15 +154,7 @@ AFRAME.registerComponent('door', {
 		doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
 		door.appendChild(doorAnimationOpen);
 		
-		var duration = document.querySelector(data.close_sound).duration;
-		// If a sound has been set, use the sound duration.
-		if (typeof(duration) !== 'undefined') {
-		  duration = Math.trunc(duration * 1000);
-		  doorAnimationClose.setAttribute('dur', duration);
-		}
-		else {
-		  doorAnimationClose.setAttribute('dur', data.close_duration);
-		}
+		this.setAnimationDuration(doorAnimationClose, data.close_sound);
 		doorAnimationClose.setAttribute('from', doorCoordinatesDestination);
 		doorAnimationClose.setAttribute('begin', data.close_event);
 		doorAnimationClose.setAttribute('to', doorCoordinates);
@@ -188,15 +172,7 @@ AFRAME.registerComponent('door', {
 		var doorCoordinates = '0 ' + deltaPosition + ' 0';
 		door.setAttribute('position', doorCoordinates);
 		doorAnimationOpen.setAttribute('from', doorCoordinates);
-		var duration = document.querySelector(data.open_sound).duration;
-		// If a sound has been set, use the sound duration.
-		if (typeof(duration) !== 'undefined') {
-		  duration = Math.trunc(duration * 1000);
-		  doorAnimationOpen.setAttribute('dur', duration);
-		}
-		else {
-		  doorAnimationOpen.setAttribute('dur', data.open_duration);
-		}
+		this.setAnimationDuration(doorAnimationOpen, data.open_sound);
 		doorAnimationOpen.setAttribute('begin', data.open_event);
 		
 		var doorYDestination = deltaPosition;
@@ -210,15 +186,7 @@ AFRAME.registerComponent('door', {
 		doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
 		door.appendChild(doorAnimationOpen);
 		
-		var duration = document.querySelector(data.close_sound).duration;
-		// If a sound has been set, use the sound duration.
-		if (typeof(duration) !== 'undefined') {
-		  duration = Math.trunc(duration * 1000);
-		  doorAnimationClose.setAttribute('dur', duration);
-		}
-		else {
-		  doorAnimationClose.setAttribute('dur', data.close_duration);
-		}
+		this.setAnimationDuration(doorAnimationClose, data.close_sound);
 		doorAnimationClose.setAttribute('from', doorCoordinatesDestination);
 		doorAnimationClose.setAttribute('begin', data.close_event);
 		doorAnimationClose.setAttribute('to', doorCoordinates);
@@ -227,5 +195,17 @@ AFRAME.registerComponent('door', {
 	  
 	  el.appendChild(door);  	
 	}
+  },
+  
+  setAnimationDuration(tag, sound) {
+    var duration = document.querySelector(sound).duration;
+    // If a sound has been set, use the sound duration.
+    if (typeof(duration) !== 'undefined') {
+      duration = Math.trunc(duration * 1000);
+      tag.setAttribute('dur', duration);
+    }
+    else {
+      tag.setAttribute('dur', data.open_duration);
+    }
   }
 });
