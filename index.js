@@ -25,8 +25,8 @@ AFRAME.registerComponent('door', {
     this.createDoor(data, el);
 	// Store the reference to the event functions.
 	this.eventOpenCloseHandler = function (event) {
-          var eventName = event.type;
-	  el.querySelectorAll('a-sound').forEach(function(sound) {
+      var eventName = event.type;
+	  el.querySelectorAll('[sound]').forEach(function(sound) {
 		sound.emit(eventName, null, false);
 	  });
 	  el.querySelectorAll('a-box').forEach(function(door) {
@@ -93,15 +93,13 @@ AFRAME.registerComponent('door', {
 	  
 	// Set the sounds.
 	if (data.open_sound !== '') {
-		var doorSoundOpen = document.createElement('a-sound');
-		doorSoundOpen.setAttribute('src', 'src: ' + data.open_sound);
-		doorSoundOpen.setAttribute('on', data.open_event);
+		var doorSoundOpen = document.createElement('a-entity');
+		doorSoundOpen.setAttribute('sound', 'src: ' + data.open_sound + '; on: ' + data.open_event);
 		el.appendChild(doorSoundOpen);
 	}
 	if (data.close_sound !== '') {
-		var doorSoundClose = document.createElement('a-sound');
-		doorSoundClose.setAttribute('src', 'src: ' + data.close_sound);
-		doorSoundClose.setAttribute('on', data.close_event);
+		var doorSoundClose = document.createElement('a-entity');
+		doorSoundClose.setAttribute('sound', 'src: ' + data.close_sound + '; on: ' + data.close_event);
 		el.appendChild(doorSoundClose);
 	}
         // Set the command attributes.
@@ -142,7 +140,15 @@ AFRAME.registerComponent('door', {
 		var doorCoordinates = deltaPosition + ' 0 0';
 		door.setAttribute('position', doorCoordinates);
 		doorAnimationOpen.setAttribute('from', doorCoordinates);
-		doorAnimationOpen.setAttribute('dur', data.open_duration);
+		var duration = document.querySelector(data.open_sound).duration;
+		// If a sound has been set, use the sound duration.
+		if (typeof(duration) !== 'undefined') {
+		  duration = Math.trunc(duration * 1000);
+		  doorAnimationOpen.setAttribute('dur', duration);
+		}
+		else {
+		  doorAnimationOpen.setAttribute('dur', data.open_duration);
+		}
 		doorAnimationOpen.setAttribute('begin', data.open_event);
 		
 		var doorXDestination = deltaPosition;
@@ -156,7 +162,15 @@ AFRAME.registerComponent('door', {
 		doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
 		door.appendChild(doorAnimationOpen);
 		
-		doorAnimationClose.setAttribute('dur', data.close_duration);
+		var duration = document.querySelector(data.close_sound).duration;
+		// If a sound has been set, use the sound duration.
+		if (typeof(duration) !== 'undefined') {
+		  duration = Math.trunc(duration * 1000);
+		  doorAnimationClose.setAttribute('dur', duration);
+		}
+		else {
+		  doorAnimationClose.setAttribute('dur', data.close_duration);
+		}
 		doorAnimationClose.setAttribute('from', doorCoordinatesDestination);
 		doorAnimationClose.setAttribute('begin', data.close_event);
 		doorAnimationClose.setAttribute('to', doorCoordinates);
@@ -174,7 +188,15 @@ AFRAME.registerComponent('door', {
 		var doorCoordinates = '0 ' + deltaPosition + ' 0';
 		door.setAttribute('position', doorCoordinates);
 		doorAnimationOpen.setAttribute('from', doorCoordinates);
-		doorAnimationOpen.setAttribute('dur', data.open_duration);
+		var duration = document.querySelector(data.open_sound).duration;
+		// If a sound has been set, use the sound duration.
+		if (typeof(duration) !== 'undefined') {
+		  duration = Math.trunc(duration * 1000);
+		  doorAnimationOpen.setAttribute('dur', duration);
+		}
+		else {
+		  doorAnimationOpen.setAttribute('dur', data.open_duration);
+		}
 		doorAnimationOpen.setAttribute('begin', data.open_event);
 		
 		var doorYDestination = deltaPosition;
@@ -188,7 +210,15 @@ AFRAME.registerComponent('door', {
 		doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
 		door.appendChild(doorAnimationOpen);
 		
-		doorAnimationClose.setAttribute('dur', data.close_duration);
+		var duration = document.querySelector(data.close_sound).duration;
+		// If a sound has been set, use the sound duration.
+		if (typeof(duration) !== 'undefined') {
+		  duration = Math.trunc(duration * 1000);
+		  doorAnimationClose.setAttribute('dur', duration);
+		}
+		else {
+		  doorAnimationClose.setAttribute('dur', data.close_duration);
+		}
 		doorAnimationClose.setAttribute('from', doorCoordinatesDestination);
 		doorAnimationClose.setAttribute('begin', data.close_event);
 		doorAnimationClose.setAttribute('to', doorCoordinates);
