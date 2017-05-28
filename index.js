@@ -13,8 +13,6 @@ AFRAME.registerComponent('door', {
       close_event: {type: 'string', default: 'close'},
       open_sound: {type: 'string', default: ''},
       close_sound: {type: 'string', default: ''},
-      open_command: {type: 'string', default: ''},
-      close_command: {type: 'string', default: ''},
   },
   /**
    * Initial creation and setting of the mesh.
@@ -102,15 +100,6 @@ AFRAME.registerComponent('door', {
 		doorSoundClose.setAttribute('sound', 'src: ' + data.close_sound + '; on: ' + data.close_event);
 		el.appendChild(doorSoundClose);
 	}
-        // Set the command attributes.
-        if (data.open_command !== '') {
-          var openCommand = 'command: ' + data.open_command + '; type: function; targetComponent: door; function: open;';
-          el.setAttribute('speech-command__open', openCommand);
-        }
-        if (data.close_command !== '') {
-          var closeCommand = 'command: ' + data.close_command + '; type: function; targetComponent: door; function: close;';
-          el.setAttribute('speech-command__open', closeCommand);
-        }
 	
 	// Create the doors.
 	var doorLoop = data.type === "double" ? 2 : 1;
