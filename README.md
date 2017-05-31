@@ -14,13 +14,15 @@
 | height           | Height of the door                                 | 2             |
 | depth            | Depth of the door                                  | 0.25          |
 | color            | Color of the door                                  | #AAA          |
-| texture          | Texture of the door                                | ''             |
+| texture          | Texture of the door                                | ''            |
 | type             | Door type ('simple' or 'double')                   | simple        |
 | open_direction   | The open direction ('right', 'left', 'up', 'down') | right         |
 | open_duration    | The duration of the opening animation in ms        | 3000          |
 | close_duration   | The duration of the closing animation in ms        | 3000          |
 | open_event       | The event name which open the door                 | open          |
 | close_event      | The event name which close the door                | close         |
+| open_sound       | The sound ressource played at the opening          | ''            |
+| close_sound       | The sound ressource played at the closing          | ''            |
 
 ### Usage
 
