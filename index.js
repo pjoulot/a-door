@@ -6,6 +6,7 @@ AFRAME.registerComponent('door', {
     color: {type: 'color', default: '#AAA'},
       texture: {type: 'string', default: ''},
       type: {type: 'string', default: 'simple'},
+	  state: {type: 'string', default: 'closed'},
       open_direction: {type: 'string', default: 'right'},
       open_duration: {type: 'number', default: 3000},
       close_duration: {type: 'number', default: 3000},
@@ -13,6 +14,7 @@ AFRAME.registerComponent('door', {
       close_event: {type: 'string', default: 'close'},
       open_sound: {type: 'string', default: ''},
       close_sound: {type: 'string', default: ''},
+	  auto_distance: {type: 'number', default: 0}
   },
   /**
    * Initial creation and setting of the mesh.
@@ -20,6 +22,7 @@ AFRAME.registerComponent('door', {
   init: function () {
     var data = this.data;
     var el = this.el;
+
     this.createDoor(data, el);
 	// Store the reference to the event functions.
 	this.eventOpenCloseHandler = function (event) {
@@ -32,9 +35,26 @@ AFRAME.registerComponent('door', {
 	  });
 	};
 	
+	// Function to detect if the door needs to open or close after a teleport.
+	this.teleportOpenCloseHandler = function (event) {
+	  var doorPos = new THREE.Vector3();
+	  doorPos.setFromMatrixPosition(el.object3D.matrixWorld);
+	  var distance = doorPos.distanceTo(event.detail.newPosition);
+	  
+	  if (distance < data.auto_distance && data.state === 'closed') {
+		data.state = 'open';
+	    el.emit('open');
+	  }
+	  else if(distance > data.auto_distance && data.state === 'open') {
+		data.state = 'closed';
+	    el.emit('close');
+	  }
+	}
+	
 	// Add the listeners for events.
 	el.addEventListener(data.open_event, this.eventOpenCloseHandler);
 	el.addEventListener(data.close_event, this.eventOpenCloseHandler);
+	el.closest('a-scene').addEventListener('teleport', this.teleportOpenCloseHandler);
   },
   
   /**
@@ -129,7 +149,7 @@ AFRAME.registerComponent('door', {
 		var doorCoordinates = deltaPosition + ' 0 0';
 		door.setAttribute('position', doorCoordinates);
 		doorAnimationOpen.setAttribute('from', doorCoordinates);
-		this.setAnimationDuration(doorAnimationOpen, data.open_sound);
+		this.setAnimationDuration(doorAnimationOpen, data.open_sound, data.open_duration);
 		doorAnimationOpen.setAttribute('begin', data.open_event);
 		
 		var doorXDestination = deltaPosition;
@@ -143,7 +163,7 @@ AFRAME.registerComponent('door', {
 		doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
 		door.appendChild(doorAnimationOpen);
 		
-		this.setAnimationDuration(doorAnimationClose, data.close_sound);
+		this.setAnimationDuration(doorAnimationClose, data.close_sound, data.close_duration);
 		doorAnimationClose.setAttribute('from', doorCoordinatesDestination);
 		doorAnimationClose.setAttribute('begin', data.close_event);
 		doorAnimationClose.setAttribute('to', doorCoordinates);
@@ -161,7 +181,7 @@ AFRAME.registerComponent('door', {
 		var doorCoordinates = '0 ' + deltaPosition + ' 0';
 		door.setAttribute('position', doorCoordinates);
 		doorAnimationOpen.setAttribute('from', doorCoordinates);
-		this.setAnimationDuration(doorAnimationOpen, data.open_sound);
+		this.setAnimationDuration(doorAnimationOpen, data.open_sound, data.open_duration);
 		doorAnimationOpen.setAttribute('begin', data.open_event);
 		
 		var doorYDestination = deltaPosition;
@@ -175,7 +195,7 @@ AFRAME.registerComponent('door', {
 		doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
 		door.appendChild(doorAnimationOpen);
 		
-		this.setAnimationDuration(doorAnimationClose, data.close_sound);
+		this.setAnimationDuration(doorAnimationClose, data.close_sound, data.close_duration);
 		doorAnimationClose.setAttribute('from', doorCoordinatesDestination);
 		doorAnimationClose.setAttribute('begin', data.close_event);
 		doorAnimationClose.setAttribute('to', doorCoordinates);
@@ -186,15 +206,17 @@ AFRAME.registerComponent('door', {
 	}
   },
   
-  setAnimationDuration(tag, sound) {
-    var duration = document.querySelector(sound).duration;
-    // If a sound has been set, use the sound duration.
-    if (typeof(duration) !== 'undefined') {
-      duration = Math.trunc(duration * 1000);
+  setAnimationDuration(tag, sound, duration) {
+	if (sound !== '') {
+      var durationSound = document.querySelector(sound).duration;
+      // If a sound has been set, use the sound duration.
+      if (typeof(durationSound) !== 'undefined') {
+        durationSound = Math.trunc(durationSound * 1000);
+        tag.setAttribute('dur', durationSound);
+      }
+	}
+	else {
       tag.setAttribute('dur', duration);
-    }
-    else {
-      tag.setAttribute('dur', data.open_duration);
     }
   }
 });
