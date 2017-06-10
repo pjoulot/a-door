@@ -8,21 +8,22 @@
 
 ### API
 
-| Property         | Description                                        | Default Value |
-|------------------|----------------------------------------------------|---------------|
-| width            | Width of the door                                  | 1             |
-| height           | Height of the door                                 | 2             |
-| depth            | Depth of the door                                  | 0.25          |
-| color            | Color of the door                                  | #AAA          |
-| texture          | Texture of the door                                | ''            |
-| type             | Door type ('simple' or 'double')                   | simple        |
-| open_direction   | The open direction ('right', 'left', 'up', 'down') | right         |
-| open_duration    | The duration of the opening animation in ms        | 3000          |
-| close_duration   | The duration of the closing animation in ms        | 3000          |
-| open_event       | The event name which open the door                 | open          |
-| close_event      | The event name which close the door                | close         |
-| open_sound       | The sound ressource played at the opening          | ''            |
-| close_sound       | The sound ressource played at the closing          | ''            |
+| Property         | Description                                           | Default Value |
+|------------------|-------------------------------------------------------|---------------|
+| width            | Width of the door                                     | 1             |
+| height           | Height of the door                                    | 2             |
+| depth            | Depth of the door                                     | 0.25          |
+| color            | Color of the door                                     | #AAA          |
+| texture          | Texture of the door                                   | ''            |
+| type             | Door type ('simple' or 'double')                      | simple        |
+| open_direction   | The open direction ('right', 'left', 'up', 'down')    | right         |
+| open_duration    | The duration of the opening animation in ms           | 3000          |
+| close_duration   | The duration of the closing animation in ms           | 3000          |
+| open_event       | The event name which open the door                    | open          |
+| close_event      | The event name which close the door                   | close         |
+| open_sound       | The sound ressource played at the opening             | ''            |
+| close_sound      | The sound ressource played at the closing             | ''            |
+| auto_distance    | The distance to automatically open and close the door | 0             |
 
 ### Usage
 
@@ -37,6 +38,38 @@ And interact with it by emitting the 'open' or 'close' event.
 ```js
 document.querySelectorAll('#door').forEach(function(door) {door.emit('open');});
 ```
+
+#### Sounds
+
+In order to attach sounds to the opening and the closing events. Your just have to set the open_sound and close_sound attributes with your sound ressources previously declared in your assets.
+
+```html
+<a-assets>
+  <audio id="close_sound" src="close_sound.mp3" preload="auto"></audio>
+</a-assets>
+```
+
+```html
+<a-entity door="close_sound: #close_sound;"></a-entity>
+```
+
+#### Speech Command
+
+You can control the opening and the closing of the door by vocal command. This feature is based on the [speech command component](https://github.com/lmalave/aframe-speech-command-component) 
+
+The door component just exposes an open and close function in order to use this component.
+Use this syntax on your a-door element:
+
+```html
+<a-entity speech-command__open="command: open; type: function; targetComponent: door; function: open;" speech-command__close="command: close; type: function; targetComponent: door; function: close;"></a-entity>
+```
+For more informations, report to the speech command component documentation.
+
+#### Automatically open and close the door
+
+You can automatically open and close the door when the user is close enough from the door by using the auto_distance attribute. You just set a number into this attribute and it represents the distance between the user and the center of the door. When the distance is lower than this limit, the door will open and when it's higher it will close.
+
+This attribute is only compatible with the [aframe teleport controls](https://github.com/fernandojsg/aframe-teleport-controls). You need to change your position with this component in order to have this feature otherwise it will just not work.
 
 ### Notes
 
