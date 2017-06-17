@@ -201,7 +201,7 @@ AFRAME.registerComponent('door', {
     }
   },
   
-  setAnimationDuration(tag, sound, duration) {
+  setAnimationDuration: function(tag, sound, duration) {
     if (sound !== '') {
       var durationSound = document.querySelector(sound).duration;
       // If a sound has been set, use the sound duration.

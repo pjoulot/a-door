@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "all": "npm run build && npm run build-uglify",
-    "build": "webpack index.js build/aframe-door.js",
-    "build-uglify": "webpack -p index.js build/aframe-door.min.js",
+    "build": "webpack index.js dist/aframe-door.js",
+    "build-uglify": "webpack -p index.js dist/aframe-door.min.js",
     "start": "budo --live --verbose --port 3000 --open"
   },
   "repository": {
