@@ -75,6 +75,8 @@ This attribute is only compatible with the [aframe teleport controls](https://gi
 
 The component is pretty simple and create only sliding rectangular doors. It also doesn't support 3D models. If you have any idea to improve the component, do a pull request ;)
 
+Moreover, it is not yet compatible with the 0.61 release which is buggy with sounds. I've opened a bug here: [Preloading sound asset seems buggy on master](https://github.com/aframevr/aframe/issues/2754)
+
 #### Browser
 
 Install and use by directly including the [browser files](dist):
