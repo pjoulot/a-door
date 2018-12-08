@@ -60,7 +60,7 @@ In order to attach sounds to the opening and the closing events. Your just have 
 <a-entity door="close_sound: #close_sound;"></a-entity>
 ```
 
-The duration of the animation was previously set automatically with the duration of the sound. Unfortunately due to a bug in the aframe core, <a-sound> is buggy and is not played at all anymore. This feature will be back as soon as the bug is fixed but you can still use the open_duration and close_duration attributes in order to set your durations manually.
+The duration of the animation was previously set automatically with the duration of the sound. Unfortunately due to a bug in the aframe core, a-sound is buggy and is not played at all anymore. This feature will be back as soon as the bug is fixed but you can still use the open_duration and close_duration attributes in order to set your durations manually.
 
 #### Speech Command
 
