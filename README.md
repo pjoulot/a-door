@@ -6,6 +6,13 @@
   <img src="https://pbs.twimg.com/media/C9fy-LjW0AUVt_H.png"/>
 </p>
 
+### Compatibility
+
+| Version         | Compatibility with the core |
+|-----------------|-----------------------------|
+| master          | 0.8                         |
+| 1.0             | 0.5                         |
+
 ### API
 
 | Property         | Description                                           | Default Value |
@@ -45,13 +52,15 @@ In order to attach sounds to the opening and the closing events. Your just have 
 
 ```html
 <a-assets>
-  <audio id="close_sound" src="close_sound.mp3" preload="auto"></audio>
+  <a-asset-item id="close_sound" src="close_sound.mp3" response-type="arraybuffer"></a-asset-item>
 </a-assets>
 ```
 
 ```html
 <a-entity door="close_sound: #close_sound;"></a-entity>
 ```
+
+The duration of the animation was previously set automatically with the duration of the sound. Unfortunately due to a bug in the aframe core, <a-sound> is buggy and is not played at all anymore. This feature will be back as soon as the bug is fixed but you can still use the open_duration and close_duration attributes in order to set your durations manually.
 
 #### Speech Command
 
@@ -74,8 +83,6 @@ This attribute is only compatible with the [aframe teleport controls](https://gi
 ### Notes
 
 The component is pretty simple and create only sliding rectangular doors. It also doesn't support 3D models. If you have any idea to improve the component, do a pull request ;)
-
-Moreover, it is not yet compatible with the 0.61 release which is buggy with sounds. I've opened a bug here: [Preloading sound asset seems buggy on master](https://github.com/aframevr/aframe/issues/2754)
 
 #### Browser
 

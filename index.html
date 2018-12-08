@@ -19,18 +19,18 @@
 
       <a-sky src="#FFF"></a-sky>
       <a-entity id="annyang" annyang-speech-recognition></a-entity>
-	  <a-entity teleport-controls vive-controls="hand: left"></a-entity>
-	  <!-- ground -->
-	  <a-plane color="#393027" height="10" width="10" position="0 0 0" rotation="-90 0 0" repeat="100 100"></a-plane>
-	  <!-- walls -->
-	  <a-plane src="#firefox" height="5" width="10" position="0 2.5 -5" rotation="0 0 0"></a-plane>
-	  <a-plane src="#boxTexture" side="back" height="5" width="10" position="0 2.5 5" rotation="0 0 0"></a-plane>
-	  <a-plane src="#boxTexture" height="5" width="10" position="-5 2.5 0" rotation="0 90 0"></a-plane>
-	  <a-plane src="#boxTexture" height="5" width="10" position="5 2.5 0" rotation="0 -90 0"></a-plane>
-	  <!-- roof -->
-	  <a-plane color="#393027" height="10" width="10" position="0 5 0" rotation="90 0 0"></a-plane>
-	  <a-entity speech-command__open="command: open; type: function; targetComponent: door; function: open;" speech-command__close="command: close; type: function; targetComponent: door; function: close;" id="door" door="width: 10; height: 5; color: #4D4437; depth: 0.25; type: double; open_direction: left; open_sound: #open_sound; close_sound: #close_sound;" position="0 2.5 -5"></a-entity>
-	  <a-light type="ambient" color="#FFF"></a-light>
+      <a-entity teleport-controls vive-controls="hand: left"></a-entity>
+      <!-- ground -->
+      <a-plane color="#393027" height="10" width="10" position="0 0 0" rotation="-90 0 0" repeat="100 100"></a-plane>
+      <!-- walls -->
+      <a-plane src="#firefox" height="5" width="10" position="0 2.5 -5" rotation="0 0 0"></a-plane>
+      <a-plane src="#boxTexture" side="back" height="5" width="10" position="0 2.5 5" rotation="0 0 0"></a-plane>
+      <a-plane src="#boxTexture" height="5" width="10" position="-5 2.5 0" rotation="0 90 0"></a-plane>
+      <a-plane src="#boxTexture" height="5" width="10" position="5 2.5 0" rotation="0 -90 0"></a-plane>
+      <!-- roof -->
+      <a-plane color="#393027" height="10" width="10" position="0 5 0" rotation="90 0 0"></a-plane>
+      <a-entity speech-command__open="command: open; type: function; targetComponent: door; function: open;" speech-command__close="command: close; type: function; targetComponent: door; function: close;" id="door" door="width: 10; height: 5; color: #4D4437; depth: 0.25; type: double; open_direction: left; open_sound: #open_sound; close_sound: #close_sound;" position="0 2.5 -5"></a-entity>
+      <a-light type="ambient" color="#FFF"></a-light>
       <a-light type="point" intensity="0.1" position="2 4 4"></a-light>
     </a-scene>
   </body>
