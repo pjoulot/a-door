@@ -172,10 +172,8 @@
 	      door.setAttribute('depth', data.depth);
 	      door.setAttribute('src', data.texture);
 	    
-	      var doorAnimationOpen = document.createElement('a-animation');
-	      doorAnimationOpen.setAttribute('attribute', 'position');
-	      var doorAnimationClose = document.createElement('a-animation');
-	      doorAnimationClose.setAttribute('attribute', 'position');
+	      var doorAnimationOpen = 'property: position;';
+	      var doorAnimationClose = '';
 	     
 	      var direction = i === 0 ? -1 : 1;
 	    
@@ -190,10 +188,7 @@
 	        }
 	        var doorCoordinates = deltaPosition + ' 0 0';
 	        door.setAttribute('position', doorCoordinates);
-	        doorAnimationOpen.setAttribute('from', doorCoordinates);
-	        this.setAnimationDuration(doorAnimationOpen, data.open_sound, data.open_duration);
-	        doorAnimationOpen.setAttribute('begin', data.open_event);
-	    
+
 	        var doorXDestination = deltaPosition;
 	        if ((data.open_direction === "right" && doorLoop === 1) || (i === 1 && doorLoop === 2)) {
 	          doorXDestination = deltaPosition + widthDoor;
@@ -202,14 +197,9 @@
 	          doorXDestination = deltaPosition - widthDoor;
 	        }
 	        var doorCoordinatesDestination = doorXDestination + ' 0 0';
-	        doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
-	        door.appendChild(doorAnimationOpen);
-	    
-	        this.setAnimationDuration(doorAnimationClose, data.close_sound, data.close_duration);
-	        doorAnimationClose.setAttribute('from', doorCoordinatesDestination);
-	        doorAnimationClose.setAttribute('begin', data.close_event);
-	        doorAnimationClose.setAttribute('to', doorCoordinates);
-	        door.appendChild(doorAnimationClose);
+
+	        doorAnimationOpen = this.getAnimation(doorCoordinates, doorCoordinatesDestination, data.open_event, data.open_duration, data.open_sound);
+	        doorAnimationClose = this.getAnimation(doorCoordinatesDestination, doorCoordinates, data.close_event, data.close_duration, data.close_sound);
 	      }
 	      else if(data.open_direction === "up" || data.open_direction === "down") {
 	        var heightDoor = data.height / doorLoop;
@@ -222,9 +212,6 @@
 	        }
 	        var doorCoordinates = '0 ' + deltaPosition + ' 0';
 	        door.setAttribute('position', doorCoordinates);
-	        doorAnimationOpen.setAttribute('from', doorCoordinates);
-	        this.setAnimationDuration(doorAnimationOpen, data.open_sound, data.open_duration);
-	        doorAnimationOpen.setAttribute('begin', data.open_event);
 	    
 	        var doorYDestination = deltaPosition;
 	        if ((data.open_direction === "up" && doorLoop === 1) || (i === 1 && doorLoop === 2)) {
@@ -234,30 +221,36 @@
 	          doorYDestination = deltaPosition - heightDoor;
 	        }
 	        var doorCoordinatesDestination = '0 ' + doorYDestination + ' 0';
-	        doorAnimationOpen.setAttribute('to', doorCoordinatesDestination);
-	        door.appendChild(doorAnimationOpen);
-	    
-	        this.setAnimationDuration(doorAnimationClose, data.close_sound, data.close_duration);
-	        doorAnimationClose.setAttribute('from', doorCoordinatesDestination);
-	        doorAnimationClose.setAttribute('begin', data.close_event);
-	        doorAnimationClose.setAttribute('to', doorCoordinates);
-	        door.appendChild(doorAnimationClose);
-	      }   
-	      el.appendChild(door);    
+
+	        doorAnimationOpen = this.getAnimation(doorCoordinates, doorCoordinatesDestination, data.open_event, data.open_duration, data.open_sound);
+	        doorAnimationClose = this.getAnimation(doorCoordinatesDestination, doorCoordinates, data.close_event, data.close_duration, data.close_sound);
+	      }
+	      door.setAttribute('animation__open', doorAnimationOpen);
+	      door.setAttribute('animation__close', doorAnimationClose);
+	      el.appendChild(door);
 	    }
 	  },
-	  
-	  setAnimationDuration: function(tag, sound, duration) {
+
+	  getAnimation: function(doorCoordinates, doorCoordinatesDestination, event, duration, sound) {
+	    var doorAnimation = 'property: position;';
+	    this.setAnimationDuration(doorAnimation, sound, duration);
+	    doorAnimation += ' from: ' + doorCoordinates + ';';
+	    doorAnimation += ' to: ' + doorCoordinatesDestination + ';';
+	    doorAnimation += ' startEvents: ' + event + ';';
+	    return doorAnimation;
+	  },
+
+	  setAnimationDuration: function(animation, sound, duration) {
 	    if (sound !== '') {
 	      var durationSound = document.querySelector(sound).duration;
 	      // If a sound has been set, use the sound duration.
 	      if (typeof(durationSound) !== 'undefined') {
 	        durationSound = Math.trunc(durationSound * 1000);
-	        tag.setAttribute('dur', durationSound);
+	        animation += ' dur: ' + durationSound + ';';
 	      }
 	    }
 	    else {
-	      tag.setAttribute('dur', duration);
+	      animation += ' dur: ' + duration + ';';
 	    }
 	  }
 	});
