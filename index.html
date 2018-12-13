@@ -2,19 +2,18 @@
   <head>
     <meta charset="utf-8">
     <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
-    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@b9ad45a68c42c9ee0e96f62077cf1e43dd0a66fa/dist/aframe-master.min.js"></script>
     <script src="https://rawgit.com/lmalave/aframe-speech-command-component/master/dist/aframe-speech-command-component.min.js"></script>
     <script src="dist/aframe-door.js"></script>
     <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
-    <script src="https://unpkg.com/aframe-animation-component@^5.1.2/dist/aframe-animation-component.min.js"></script>
   </head>
   <body>
     <a-scene>
       <a-assets>
         <img id="boxTexture" src="resources/image/texture.jpg"/>
         <img id="firefox" src="resources/image/firefox.jpg"/>
-        <a-asset-item id="open_sound" src="resources/sound/atlantis_door_open.mp3" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="close_sound" src="resources/sound/atlantis_door_close.mp3" response-type="arraybuffer"></a-asset-item>
+        <audio id="open_sound" src="resources/sound/atlantis_door_open.mp3" preload="auto"></audio>
+        <audio id="close_sound" src="resources/sound/atlantis_door_close.mp3" preload="auto"></audio>
       </a-assets>
 
       <a-sky src="#FFF"></a-sky>

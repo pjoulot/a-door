@@ -233,14 +233,15 @@
 
 	  getAnimation: function(doorCoordinates, doorCoordinatesDestination, event, duration, sound) {
 	    var doorAnimation = 'property: position;';
-	    this.setAnimationDuration(doorAnimation, sound, duration);
+	    doorAnimation += this.setAnimationDuration(sound, duration);
 	    doorAnimation += ' from: ' + doorCoordinates + ';';
 	    doorAnimation += ' to: ' + doorCoordinatesDestination + ';';
 	    doorAnimation += ' startEvents: ' + event + ';';
 	    return doorAnimation;
 	  },
 
-	  setAnimationDuration: function(animation, sound, duration) {
+	  setAnimationDuration: function(sound, duration) {
+	    var animation = '';
 	    if (sound !== '') {
 	      var durationSound = document.querySelector(sound).duration;
 	      // If a sound has been set, use the sound duration.
@@ -252,6 +253,7 @@
 	    else {
 	      animation += ' dur: ' + duration + ';';
 	    }
+	    return animation;
 	  }
 	});
 
