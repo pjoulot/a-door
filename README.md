@@ -10,6 +10,7 @@
 
 | Version         | Compatibility with the core |
 |-----------------|-----------------------------|
+| 2.0             | 1.4 and more                |
 | 1.2             | 0.9 and more                |
 | 1.1             | 0.8                         |
 | 1.0             | 0.5                         |
