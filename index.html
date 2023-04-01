@@ -2,8 +2,7 @@
   <head>
     <meta charset="utf-8">
     <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@b9ad45a68c42c9ee0e96f62077cf1e43dd0a66fa/dist/aframe-master.min.js"></script>
-    <script src="https://rawgit.com/lmalave/aframe-speech-command-component/master/dist/aframe-speech-command-component.min.js"></script>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="dist/aframe-door.js"></script>
     <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
   </head>
@@ -28,7 +27,7 @@
       <a-plane src="#boxTexture" height="5" width="10" position="5 2.5 0" rotation="0 -90 0"></a-plane>
       <!-- roof -->
       <a-plane color="#393027" height="10" width="10" position="0 5 0" rotation="90 0 0"></a-plane>
-      <a-entity speech-command__open="command: open; type: function; targetComponent: door; function: open;" speech-command__close="command: close; type: function; targetComponent: door; function: close;" id="door" door="width: 10; height: 5; color: #4D4437; depth: 0.25; type: double; open_direction: left; open_sound: #open_sound; close_sound: #close_sound;" position="0 2.5 -5"></a-entity>
+      <a-entity id="door" door="width: 10; height: 5; color: #4D4437; depth: 0.25; type: double; open_direction: left; open_sound: #open_sound; close_sound: #close_sound;" position="0 2.5 -5"></a-entity>
       <a-light type="ambient" color="#FFF"></a-light>
       <a-light type="point" intensity="0.1" position="2 4 4"></a-light>
     </a-scene>

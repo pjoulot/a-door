@@ -61,9 +61,9 @@ In order to attach sounds to the opening and the closing events. Your just have 
 <a-entity door="close_sound: #close_sound;"></a-entity>
 ```
 
-#### Speech Command
+#### Speech Command (version 1.2 and older)
 
-You can control the opening and the closing of the door by vocal command. This feature is based on the [speech command component](https://github.com/lmalave/aframe-speech-command-component) 
+You can control the opening and the closing of the door by vocal command. This feature is based on the [speech command component](https://github.com/lmalave/aframe-speech-command-component)
 
 The door component just exposes an open and close function in order to use this component.
 Use this syntax on your a-door element:
